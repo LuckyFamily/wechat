@@ -1,9 +1,12 @@
 package Servlet;
+import Util.CheckUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Created by jiangyiming on 5/14/16.
@@ -15,5 +18,10 @@ public class WechatServlet extends HttpServlet {
         String timestamp = req.getParameter("timestamp");
         String nonce = req.getParameter("nonce");
         String echostr = req.getParameter("echostr");
+
+        PrintWriter out =resp.getWriter();
+        if (CheckUtil.checkSignature(signature,timestamp,nonce)){
+            out.print(echostr);
+        }
     }
 }
