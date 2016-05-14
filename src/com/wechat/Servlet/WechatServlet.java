@@ -49,7 +49,7 @@ public class WechatServlet extends HttpServlet {
                     message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.firstMenu());
 
                 } else if ("2".equals(content)) {
-                    message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.secMenu());
+                    message = MessageUtil.initNewsMessage(toUserName, fromUserName);
                 } else if ("?".equals(content) || "？".equals(content)) {
                     message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.menuText());
                 }
