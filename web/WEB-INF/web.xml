@@ -5,7 +5,7 @@
          version="3.1">
     <servlet>
         <servlet-name>wechatServlet</servlet-name>
-        <servlet-class>Servlet.WechatServlet</servlet-class>
+        <servlet-class>com.wechat.servlet.WechatServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>wechatServlet</servlet-name>

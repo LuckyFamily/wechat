@@ -1,4 +1,4 @@
-package Util;
+package com.wechat.util;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
