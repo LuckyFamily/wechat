@@ -21,8 +21,8 @@ import java.security.NoSuchProviderException;
  * Created by jiangyiming on 5/14/16.
  */
 public class wechatUtil {
-    private static final String APPID="wxbb3f930754feb0a9";
-    private static final String APPSECRET="3236e78bf4a4b01d35463f44c7e74b9a";
+    private static final String APPID="wxb3855be5ba85b861";
+    private static final String APPSECRET="a1ecced35896dc6de4c96c9367a69360";
     private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     private static final String UPLOAD_URL="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
 
