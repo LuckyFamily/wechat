@@ -21,6 +21,7 @@ public class MessageUtil {
     public static final String MESSAGE_NEWS = "news";
     public static final String MESSAGE_IMAGE = "image";
     public static final String MESSAGE_VOICE = "voice";
+    public static final String MESSAGE_MUSIC = "music";
     public static final String MESSAGE_VIDEO = "video";
     public static final String MESSAGE_LINK = "link";
     public static final String MESSAGE_LOCATION = "location";
@@ -100,8 +101,31 @@ public class MessageUtil {
     public static String imageMessageToXml(ImageMessage imageMessage) {
         XStream xStream = new XStream();
         xStream.alias("xml", imageMessage.getClass());
-        xStream.alias("item", new Image().getClass());
         return xStream.toXML(imageMessage);
+    }
+
+    public static String initMusicMessage(String toUserName,String fromUserName){
+        String message= null;
+        Music music = new Music();
+        music.setThumbMediaId("");//要获取!!!!!!test里
+        music.setTitle("see you again");
+        music.setDescription("C U Again");
+        music.setHqmusicUrl("");//路径==公网+/resources~~~
+        music.setMusicUrl("");//同上
+        MusicMessage musicMessage = new MusicMessage();
+        musicMessage.setFromUserName(toUserName);
+        musicMessage.setToUserName(fromUserName);
+        musicMessage.setMsgType(MESSAGE_MUSIC);
+        musicMessage.setCreateTime(new Date().getTime());
+        musicMessage.setMusic(music);
+        message = musicMessageToXml(musicMessage);
+        return message;
+    }
+
+    public static String musicMessageToXml(MusicMessage musicMessage) {
+        XStream xStream = new XStream();
+        xStream.alias("xml", musicMessage.getClass());
+        return xStream.toXML(musicMessage);
     }
 
     public static String initText(String toUserName,String fromUserName,String content){
