@@ -1,9 +1,7 @@
 package com.wechat.util;
 
 import com.thoughtworks.xstream.XStream;
-import com.wechat.po.News;
-import com.wechat.po.NewsMessage;
-import com.wechat.po.TextMessage;
+import com.wechat.po.*;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -82,6 +80,28 @@ public class MessageUtil {
         newsMessage.setArticles(newsList);
         message = newsMessageToXml(newsMessage);
         return message;
+    }
+
+
+    public static String initImageMessage(String toUserName,String fromUserName){
+        String message= null;
+        Image image = new Image();
+        image.setMediaId("");//要获取!!!!!!test里
+        ImageMessage imageMessage = new ImageMessage();
+        imageMessage.setFromUserName(toUserName);
+        imageMessage.setToUserName(fromUserName);
+        imageMessage.setMsgType(MESSAGE_IMAGE);
+        imageMessage.setCreateTime(new Date().getTime());
+        imageMessage.setImage(image);
+        message = imageMessageToXml(imageMessage);
+        return message;
+    }
+
+    public static String imageMessageToXml(ImageMessage imageMessage) {
+        XStream xStream = new XStream();
+        xStream.alias("xml", imageMessage.getClass());
+        xStream.alias("item", new Image().getClass());
+        return xStream.toXML(imageMessage);
     }
 
     public static String initText(String toUserName,String fromUserName,String content){
