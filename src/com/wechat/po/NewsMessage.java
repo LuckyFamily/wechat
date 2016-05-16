@@ -6,22 +6,22 @@ import java.util.List;
  * Created by jiangyiming on 5/14/16.
  */
 public class NewsMessage extends BaseMessage{
-    private int articleCount;
-    private List<News> articles;
+    private int ArticleCount;
+    private List<News> Articles;
 
     public int getArticleCount() {
-        return articleCount;
+        return ArticleCount;
     }
 
     public void setArticleCount(int articleCount) {
-        this.articleCount = articleCount;
+        ArticleCount = articleCount;
     }
 
     public List<News> getArticles() {
-        return articles;
+        return Articles;
     }
 
     public void setArticles(List<News> articles) {
-        this.articles = articles;
+        Articles = articles;
     }
 }
