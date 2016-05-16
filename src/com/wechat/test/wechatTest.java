@@ -11,6 +11,6 @@ public class wechatTest {
         AccessToken token = wechatUtil.getAccessToken();
         System.out.println("票据"+token.getToken());
         System.out.println("有效时间"+token.getExpires_in());
-        String path ="";
+        String path ="http://wewechat.duapp.com/wechat/";
     }
 }

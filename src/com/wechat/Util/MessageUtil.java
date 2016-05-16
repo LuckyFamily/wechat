@@ -70,7 +70,7 @@ public class MessageUtil {
         News news = new News();
         news.setTitle("第一枚自己实现的微信服务器后台发出来的文章");
         news.setDescription("好嗨皮好嗨皮");
-        news.setPicUrl("项目地址+/image/杀老师.jpeg");
+        news.setPicUrl("http://wewechat.duapp.com/wechat/image/杀老师.jpeg");
         news.setUrl("www.baidu.com");
         newsList.add(news);
         newsMessage.setFromUserName(toUserName);
@@ -110,8 +110,8 @@ public class MessageUtil {
         music.setThumbMediaId("");//要获取!!!!!!test里
         music.setTitle("see you again");
         music.setDescription("C U Again");
-        music.setHqmusicUrl("");//路径==公网+/resources~~~
-        music.setMusicUrl("");//同上
+        music.setHqmusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//路径==公网+/resources~~~
+        music.setMusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//同上
         MusicMessage musicMessage = new MusicMessage();
         musicMessage.setFromUserName(toUserName);
         musicMessage.setToUserName(fromUserName);

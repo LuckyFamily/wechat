@@ -1,5 +1,9 @@
 package com.wechat.util;
 
+import com.wechat.menu.Button;
+import com.wechat.menu.ClickButton;
+import com.wechat.menu.Menu;
+import com.wechat.menu.ViewButton;
 import com.wechat.po.AccessToken;
 import net.sf.json.JSONObject;
 import org.apache.http.HttpEntity;
@@ -173,5 +177,35 @@ public class wechatUtil {
         }
         String mediaId = jsonObj.getString(typeName);
         return mediaId;
+    }
+
+    public static Menu initMenu(){
+        Menu menu = new Menu();
+        ClickButton button11 = new ClickButton();
+        button11.setName("click菜单");
+        button11.setType("click");
+        button11.setKey("11");
+
+        ViewButton button21 = new ViewButton();
+        button21.setName("view菜单");
+        button21.setType("view");
+        button21.setUrl("http://www.baidu.com");
+
+        ClickButton button31 = new ClickButton();
+        button31.setName("扫码");
+        button31.setType("scancode_push");
+        button31.setKey("31");
+
+        ClickButton button32 = new ClickButton();
+        button31.setName("地理位置");
+        button31.setType("location_select");
+        button31.setKey("32");
+
+        Button button = new Button();
+        button.setName("菜单");
+        button.setSub_button(new Button[]{button31,button32});
+
+        menu.setButton(new Button[]{button11,button21,button});
+        return menu;
     }
 }
