@@ -5,23 +5,23 @@ package com.wechat.po;
  */
 public class TextMessage extends BaseMessage{
 
-    private String content;
-    private Long msgId;
+    private String Content;
+    private Long MsgId;
 
 
     public String getContent() {
-        return content;
+        return Content;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.Content = content;
     }
 
     public Long getMsgId() {
-        return msgId;
+        return MsgId;
     }
 
     public void setMsgId(Long msgId) {
-        this.msgId = msgId;
+        this.MsgId = msgId;
     }
 }
