@@ -4,13 +4,13 @@ package com.wechat.po;
  * Created by jiangyiming on 5/15/16.
  */
 public class Image {
-    private String mediaId;
+    private String MediaId;
 
     public String getMediaId() {
-        return mediaId;
+        return MediaId;
     }
 
     public void setMediaId(String mediaId) {
-        this.mediaId = mediaId;
+        this.MediaId = mediaId;
     }
 }

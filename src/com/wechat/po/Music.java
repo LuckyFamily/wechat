@@ -4,49 +4,49 @@ package com.wechat.po;
  * Created by jiangyiming on 5/15/16.
  */
 public class Music {
-    private String title;
-    private String description;
-    private String musicUrl;
-    private String hqmusicUrl;
-    private String thumbMediaId;
+    private String Title;
+    private String Description;
+    private String MusicUrl;
+    private String HQMusicUrl;
+    private String ThumbMediaId;
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        Title = title;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        Description = description;
     }
 
     public String getMusicUrl() {
-        return musicUrl;
+        return MusicUrl;
     }
 
     public void setMusicUrl(String musicUrl) {
-        this.musicUrl = musicUrl;
+        MusicUrl = musicUrl;
     }
 
-    public String getHqmusicUrl() {
-        return hqmusicUrl;
+    public String getHQMusicUrl() {
+        return HQMusicUrl;
     }
 
-    public void setHqmusicUrl(String hqmusicUrl) {
-        this.hqmusicUrl = hqmusicUrl;
+    public void setHQMusicUrl(String HQMusicUrl) {
+        this.HQMusicUrl = HQMusicUrl;
     }
 
     public String getThumbMediaId() {
-        return thumbMediaId;
+        return ThumbMediaId;
     }
 
     public void setThumbMediaId(String thumbMediaId) {
-        this.thumbMediaId = thumbMediaId;
+        ThumbMediaId = thumbMediaId;
     }
 }

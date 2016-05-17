@@ -69,8 +69,8 @@ public class MessageUtil {
         NewsMessage newsMessage = new NewsMessage();
         News news = new News();
         news.setTitle("第一枚自己实现的微信服务器后台发出来的文章");
-        news.setDescription("好嗨皮好嗨皮");
-        news.setPicUrl("http://wewechat.duapp.com/wechat/image/杀老师.jpeg");
+        news.setDescription("这只是一个超链接...");
+        news.setPicUrl("http://www.baidu.com/img/bd_logo1.png");
         news.setUrl("www.baidu.com");
         newsList.add(news);
         newsMessage.setFromUserName(toUserName);
@@ -87,7 +87,7 @@ public class MessageUtil {
     public static String initImageMessage(String toUserName,String fromUserName){
         String message= null;
         Image image = new Image();
-        image.setMediaId("");//要获取!!!!!!test里
+        image.setMediaId("vCDMwynUtmso-E_vBmWuFy70fCrHEYZGSWhE1pi_pLZknmkjCTM9WbZ4j7Vp7UMI");//要获取!!!!!!test里
         ImageMessage imageMessage = new ImageMessage();
         imageMessage.setFromUserName(toUserName);
         imageMessage.setToUserName(fromUserName);
@@ -110,7 +110,7 @@ public class MessageUtil {
         music.setThumbMediaId("");//要获取!!!!!!test里
         music.setTitle("see you again");
         music.setDescription("C U Again");
-        music.setHqmusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//路径==公网+/resources~~~
+        music.setHQMusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//路径==公网+/resources~~~
         music.setMusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//同上
         MusicMessage musicMessage = new MusicMessage();
         musicMessage.setFromUserName(toUserName);
@@ -143,7 +143,6 @@ public class MessageUtil {
      */
     public static String menuText(){
         StringBuffer sb = new StringBuffer();
-        sb.append("吼吼~~怎么才关注我咧~~请按菜单提示进行操作!么么扎\n\n");
         sb.append("1.test\n");
         sb.append("2.一条图文消息\n\n");
         sb.append("回复 ? 调出此菜单~~");
@@ -157,7 +156,7 @@ public class MessageUtil {
         return sb.toString();
     }
 
-    public static String secMenu(){
+    public static String subscribeMenu(){
         StringBuffer sb = new StringBuffer();
         sb.append("吼吼~~怎么才关注我咧~~请按菜单提示进行操作!么么扎\n\n");
         sb.append("1.test\n");

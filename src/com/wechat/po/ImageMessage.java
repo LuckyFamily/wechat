@@ -4,13 +4,13 @@ package com.wechat.po;
  * Created by jiangyiming on 5/15/16.
  */
 public class ImageMessage extends BaseMessage{
-    private Image image;
+    private Image Image;
 
     public Image getImage() {
-        return image;
+        return Image;
     }
 
     public void setImage(Image image) {
-        image = image;
+        Image = image;
     }
 }
