@@ -8,6 +8,7 @@ import com.wechat.po.AccessToken;
 import net.sf.json.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -29,6 +30,9 @@ public class wechatUtil {
     private static final String APPSECRET="a1ecced35896dc6de4c96c9367a69360";
     private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
     private static final String UPLOAD_URL="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+    private static final String CREATE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+    private static final String QUERY_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN";
+    private static final String DELETE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
 
     /**
      * get请求
@@ -192,14 +196,14 @@ public class wechatUtil {
         button21.setUrl("http://www.baidu.com");
 
         ClickButton button31 = new ClickButton();
-        button31.setName("扫码");
+        button31.setName("扫描");
         button31.setType("scancode_push");
         button31.setKey("31");
 
         ClickButton button32 = new ClickButton();
-        button31.setName("地理位置");
-        button31.setType("location_select");
-        button31.setKey("32");
+        button32.setName("位置");
+        button32.setType("location_select");
+        button32.setKey("32");
 
         Button button = new Button();
         button.setName("菜单");
@@ -207,5 +211,31 @@ public class wechatUtil {
 
         menu.setButton(new Button[]{button11,button21,button});
         return menu;
+    }
+
+    public static int createMenu(String token,String menu) throws ParseException, IOException{
+        int result = 0;
+        String url = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);
+        JSONObject jsonObject = doPostStr(url, menu);
+        if(jsonObject != null){
+            result = jsonObject.getInt("errcode");
+        }
+        return result;
+    }
+
+    public static JSONObject queryMenu(String token) throws ParseException, IOException{
+        String url = QUERY_MENU_URL.replace("ACCESS_TOKEN", token);
+        JSONObject jsonObject = doGetStr(url);
+        return jsonObject;
+    }
+
+    public static int deleteMenu(String token) throws ParseException, IOException{
+        String url = DELETE_MENU_URL.replace("ACCESS_TOKEN", token);
+        JSONObject jsonObject = doGetStr(url);
+        int result = 0;
+        if(jsonObject != null){
+            result = jsonObject.getInt("errcode");
+        }
+        return result;
     }
 }
