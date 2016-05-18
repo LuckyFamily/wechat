@@ -3,6 +3,7 @@ package com.wechat.servlet;
 import com.wechat.po.TextMessage;
 import com.wechat.util.CheckUtil;
 import com.wechat.util.MessageUtil;
+import com.wechat.util.wechatUtil;
 import org.dom4j.DocumentException;
 
 import javax.servlet.ServletException;
@@ -55,11 +56,13 @@ public class WechatServlet extends HttpServlet {
                     message = MessageUtil.initMusicMessage(toUserName, fromUserName);
                 }else if ("?".equals(content) || "？".equals(content)) {
                     message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.menuText());
+                }else{
+                    message=MessageUtil.initText(toUserName,fromUserName,wechatUtil.translate(content));
                 }
             } else if(MessageUtil.MESSAGE_EVENT.equals(msgType)){
                 String eventType = map.get("Event");
                 if(MessageUtil.MESSAGE_SUBSCRIBE.equals(eventType)){
-                    message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.menuText());
+                    message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.subscribeMenu());
                 }else if(MessageUtil.MESSAGE_CLICK.equals(eventType)){
                     message = MessageUtil.initText(toUserName, fromUserName, MessageUtil.menuText());
                 }else if(MessageUtil.MESSAGE_VIEW.equals(eventType)){

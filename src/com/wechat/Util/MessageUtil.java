@@ -84,10 +84,10 @@ public class MessageUtil {
     }
 
 
-    public static String initImageMessage(String toUserName,String fromUserName){
-        String message= null;
+    public static String initImageMessage(String toUserName, String fromUserName){
+        String message = null;
         Image image = new Image();
-        image.setMediaId("vCDMwynUtmso-E_vBmWuFy70fCrHEYZGSWhE1pi_pLZknmkjCTM9WbZ4j7Vp7UMI");//要获取!!!!!!test里
+        image.setMediaId("es4VFubag5vzrVQOILxKVQBvM5Rdnvr1lSPsm3dJPztHLzR2ekhpAPaE7RqRb_-k");
         ImageMessage imageMessage = new ImageMessage();
         imageMessage.setFromUserName(toUserName);
         imageMessage.setToUserName(fromUserName);
@@ -110,8 +110,8 @@ public class MessageUtil {
         music.setThumbMediaId("");//要获取!!!!!!test里
         music.setTitle("see you again");
         music.setDescription("C U Again");
-        music.setHQMusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//路径==公网+/resources~~~
-        music.setMusicUrl("http://wewechat.duapp.com/wechat/music/See You Again.mp3");//同上
+        music.setHQMusicUrl("http://wewechat.duapp.com/wechat/music/SeeYouAgain.mp3");//路径==公网+/resources~~~
+        music.setMusicUrl("http://wewechat.duapp.com/wechat/music/SeeYouAgain.mp3");//同上
         MusicMessage musicMessage = new MusicMessage();
         musicMessage.setFromUserName(toUserName);
         musicMessage.setToUserName(fromUserName);
@@ -146,6 +146,7 @@ public class MessageUtil {
         sb.append("1.test\n");
         sb.append("2.一条图文消息\n\n");
         sb.append("回复 ? 调出此菜单~~");
+        sb.append("以任何一种语言发送任何文字最后都会翻译成英文~~欢迎调戏");
         return sb.toString();
     }
 
@@ -160,8 +161,9 @@ public class MessageUtil {
         StringBuffer sb = new StringBuffer();
         sb.append("吼吼~~怎么才关注我咧~~请按菜单提示进行操作!么么扎\n\n");
         sb.append("1.test\n");
-        sb.append("2.test2\n\n");
+        sb.append("2.一条图文消息\n\n");
         sb.append("回复 ? 调出此菜单~~");
+        sb.append("以任何一种语言发送任何文字最后都会翻译成英文~~欢迎调戏");
         return sb.toString();
     }
 }

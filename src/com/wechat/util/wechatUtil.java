@@ -5,7 +5,9 @@ import com.wechat.menu.ClickButton;
 import com.wechat.menu.Menu;
 import com.wechat.menu.ViewButton;
 import com.wechat.po.AccessToken;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -18,36 +20,55 @@ import org.apache.http.util.EntityUtils;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by jiangyiming on 5/14/16.
  */
 public class wechatUtil {
-    private static final String APPID="wxb3855be5ba85b861";
-    private static final String APPSECRET="a1ecced35896dc6de4c96c9367a69360";
+    private static final String APPID = "wxb3855be5ba85b861";
+    private static final String APPSECRET = "a1ecced35896dc6de4c96c9367a69360";
     private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-    private static final String UPLOAD_URL="https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
+    private static final String UPLOAD_URL = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE";
     private static final String CREATE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
     private static final String QUERY_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN";
     private static final String DELETE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN";
+    private static final String TRANSLATE_URL = "http://api.fanyi.baidu.com/api/trans/vip/translate";
+
+
+    private static final String UTF8 = "utf-8";
+
+    //申请者开发者id，实际使用时请修改成开发者自己的appid
+    private static final String appId = "20160518000021320";
+
+    //申请成功后的证书token，实际使用时请修改成开发者自己的token
+    private static final String token = "KU0LVZxO4bGdS6xoDyTG";
+
+    //随机数，用于生成md5值，开发者使用时请激活下边第四行代码
+    private static final Random random = new Random();
+
 
     /**
      * get请求
+     *
      * @param url
      * @return
      */
-    public static JSONObject doGetStr(String url){
+    public static JSONObject doGetStr(String url) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(url);
         JSONObject jsonObject = null;
         try {
             HttpResponse httpResponse = httpClient.execute(httpGet);
             HttpEntity entity = httpResponse.getEntity();
-            if (entity!=null){
-                String result = EntityUtils.toString(entity,"UTF-8");
+            if (entity != null) {
+                String result = EntityUtils.toString(entity, "UTF-8");
                 jsonObject = JSONObject.fromObject(result);
             }
         } catch (IOException e) {
@@ -59,18 +80,19 @@ public class wechatUtil {
 
     /**
      * post请求
+     *
      * @param url
      * @param outStr
      * @return
      */
-    public static JSONObject doPostStr(String url,String outStr){
+    public static JSONObject doPostStr(String url, String outStr) {
         DefaultHttpClient client = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(url);
         JSONObject jsonObject = null;
         try {
-            httpPost.setEntity(new StringEntity(outStr,"UTF-8"));
+            httpPost.setEntity(new StringEntity(outStr, "UTF-8"));
             HttpResponse response = client.execute(httpPost);
-            String result = EntityUtils.toString(response.getEntity(),"UTF-8");
+            String result = EntityUtils.toString(response.getEntity(), "UTF-8");
             jsonObject = JSONObject.fromObject(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,28 +102,29 @@ public class wechatUtil {
 
     /**
      * 获取accessToken
+     *
      * @param
      * @param
      * @return
      */
-    public static AccessToken getAccessToken(){
+    public static AccessToken getAccessToken() {
         AccessToken accessToken = new AccessToken();
-        String url = ACCESS_TOKEN_URL.replace("APPID",APPID).replace("APPSECRET",APPSECRET);
+        String url = ACCESS_TOKEN_URL.replace("APPID", APPID).replace("APPSECRET", APPSECRET);
         JSONObject jsonObject = doGetStr(url);
-        if (jsonObject!=null){
+        if (jsonObject != null) {
             accessToken.setToken(jsonObject.getString("access_token"));
             accessToken.setExpires_in(jsonObject.getInt("expires_in"));
         }
         return accessToken;
     }
 
-    public static String upload(String filePath, String accessToken,String type) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
+    public static String upload(String filePath, String accessToken, String type) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
         File file = new File(filePath);
         if (!file.exists() || !file.isFile()) {
             throw new IOException("文件不存在");
         }
 
-        String url = UPLOAD_URL.replace("ACCESS_TOKEN", accessToken).replace("TYPE",type);
+        String url = UPLOAD_URL.replace("ACCESS_TOKEN", accessToken).replace("TYPE", type);
 
         URL urlObj = new URL(url);
         //连接
@@ -176,14 +199,14 @@ public class wechatUtil {
         JSONObject jsonObj = JSONObject.fromObject(result);
         System.out.println(jsonObj);
         String typeName = "media_id";
-        if(!"image".equals(type)){
+        if (!"image".equals(type)) {
             typeName = type + "_media_id";
         }
         String mediaId = jsonObj.getString(typeName);
         return mediaId;
     }
 
-    public static Menu initMenu(){
+    public static Menu initMenu() {
         Menu menu = new Menu();
         ClickButton button11 = new ClickButton();
         button11.setName("click菜单");
@@ -207,35 +230,56 @@ public class wechatUtil {
 
         Button button = new Button();
         button.setName("菜单");
-        button.setSub_button(new Button[]{button31,button32});
+        button.setSub_button(new Button[]{button31, button32});
 
-        menu.setButton(new Button[]{button11,button21,button});
+        menu.setButton(new Button[]{button11, button21, button});
         return menu;
     }
 
-    public static int createMenu(String token,String menu) throws ParseException, IOException{
+    public static int createMenu(String token, String menu) throws ParseException, IOException {
         int result = 0;
         String url = CREATE_MENU_URL.replace("ACCESS_TOKEN", token);
         JSONObject jsonObject = doPostStr(url, menu);
-        if(jsonObject != null){
+        if (jsonObject != null) {
             result = jsonObject.getInt("errcode");
         }
         return result;
     }
 
-    public static JSONObject queryMenu(String token) throws ParseException, IOException{
+    public static JSONObject queryMenu(String token) throws ParseException, IOException {
         String url = QUERY_MENU_URL.replace("ACCESS_TOKEN", token);
         JSONObject jsonObject = doGetStr(url);
         return jsonObject;
     }
 
-    public static int deleteMenu(String token) throws ParseException, IOException{
+    public static int deleteMenu(String token) throws ParseException, IOException {
         String url = DELETE_MENU_URL.replace("ACCESS_TOKEN", token);
         JSONObject jsonObject = doGetStr(url);
         int result = 0;
-        if(jsonObject != null){
+        if (jsonObject != null) {
             result = jsonObject.getInt("errcode");
         }
         return result;
     }
+
+    public static String translate(String q) throws UnsupportedEncodingException {
+        System.out.println(q + ":");
+        String from = "auto";
+        String to = "en";
+        int salt = random.nextInt(10000);
+        String sign;
+        String str = appId + q + salt + token;
+
+        StringBuilder md5String = new StringBuilder();
+        md5String.append(appId).append(q).append(salt).append(token);
+        sign = DigestUtils.md5Hex(md5String.toString());
+        q = java.net.URLEncoder.encode(q, UTF8);
+        String url = TRANSLATE_URL + "?q=" + q + "&from=" + from + "&to=" + to + "&appid=" + appId + "&salt=" + salt + "&sign=" + sign;
+        JSONObject jsonObject = doGetStr(url);
+        JSONArray resultArray = JSONArray.fromObject(jsonObject.getString("trans_result"));
+        JSONObject result = JSONObject.fromObject(resultArray.get(0).toString());
+        return result.getString("dst");
+
+    }
+
 }
