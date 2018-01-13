@@ -86,14 +86,14 @@ public class MessageUtil {
 
     public static String initImageMessage(String toUserName, String fromUserName){
         String message = null;
-        Image image = new Image();
-        image.setMediaId("es4VFubag5vzrVQOILxKVQBvM5Rdnvr1lSPsm3dJPztHLzR2ekhpAPaE7RqRb_-k");
         ImageMessage imageMessage = new ImageMessage();
         imageMessage.setFromUserName(toUserName);
         imageMessage.setToUserName(fromUserName);
         imageMessage.setMsgType(MESSAGE_IMAGE);
         imageMessage.setCreateTime(new Date().getTime());
-        imageMessage.setImage(image);
+        imageMessage.setMediaId("es4VFubag5vzrVQOILxKVQBvM5Rdnvr1lSPsm3dJPztHLzR2ekhpAPaE7RqRb_-k");
+        imageMessage.setPicUrl("http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=R1ejjL0eFuiFkk6plCfluhsICX5cqaQYoOSgedYQCt8o17afbldCFC3EzZwt7iTiBw9IMljKHkjRjyBZB_n2JAtbJWFzdfUjrhXo7RjDXfPI8CASubib2U3GbCjLkDQMXSCgADARMW&media_id=es4VFubag5vzrVQOILxKVQBvM5Rdnvr1lSPsm3dJPztHLzR2ekhpAPaE7RqRb_-k");
+        imageMessage.setMsgId("2134567890123456");
         message = imageMessageToXml(imageMessage);
         return message;
     }

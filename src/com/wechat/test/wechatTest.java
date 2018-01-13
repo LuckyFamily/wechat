@@ -1,6 +1,7 @@
 package com.wechat.test;
 
 import com.wechat.po.AccessToken;
+import com.wechat.util.MessageUtil;
 import com.wechat.util.wechatUtil;
 import net.sf.json.JSONObject;
 
@@ -20,6 +21,8 @@ public class wechatTest {
 //        System.out.println("有效时间"+token.getExpires_in());
         //String path ="/Users/jiangyiming/Pictures/erha.jpg";
         try {
+            String string=MessageUtil.initImageMessage("me", "you");
+            System.out.println(string);
 //            String mediaId = wechatUtil.upload(path, token.getToken(), "image");
 //            System.out.println(mediaId);
 
@@ -43,9 +46,9 @@ public class wechatTest {
 //
 //            JSONObject queryMenu = JSONObject.fromObject(wechatUtil.queryMenu(token.getToken()));
 //            System.out.println(queryMenu);
-            String source = "百度翻译很坑爹";
-            String result = wechatUtil.translate(source);
-            System.out.println(result);
+//            String source = "百度翻译很坑爹";
+//            String result = wechatUtil.translate(source);
+//            System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
         }
